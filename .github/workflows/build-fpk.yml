@@ -23,7 +23,7 @@ jobs:
         id: version
         run: |
           # Fetch the version file directly from upstream (lightweight, no full clone)
-          RAW_VERSION=$(curl -sL "https://raw.githubusercontent.com/Ponphil/LitePan/main/internal/httpx/user_agent.go" \
+          RAW_VERSION=$(curl -sL "https://raw.githubusercontent.com/anxiangyipiao/LitePan/main/internal/httpx/user_agent.go" \
             | grep -oP 'AppVersion\s*=\s*"\K[^"]+')
 
           if [ -z "$RAW_VERSION" ]; then
@@ -82,9 +82,9 @@ jobs:
           echo "Building LitePan version: v${{ needs.check.outputs.version }}"
           echo "Triggered by: ${{ github.event_name }}"
 
-      - name: Clone original LitePan source
+      - name: Clone LitePan source (fork)
         run: |
-          git clone --depth 1 https://github.com/Ponphil/LitePan.git litepan-src
+          git clone --depth 1 https://github.com/anxiangyipiao/LitePan.git litepan-src
 
       - name: Override constants.go with our fork version
         run: |
@@ -110,7 +110,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: '1.26'
           cache-dependency-path: litepan-src/go.sum
 
       - name: Build amd64 (x86) binary
@@ -181,7 +181,7 @@ jobs:
           RUN_NUMBER: ${{ github.run_number }}
         run: |
           TAG="v${VERSION}-fpk-${RUN_NUMBER}"
-          REPO_URL="https://github.com/qilin-zhu/LitePan-fpk/releases/download/${TAG}"
+          REPO_URL="https://github.com/anxiangyipiao/LitePan-fpk/releases/download/${TAG}"
           X86_FPK="LitePan_x86_${VERSION}.fpk"
           ARM_FPK="LitePan_arm_${VERSION}.fpk"
 
@@ -240,7 +240,7 @@ jobs:
           fi
 
           TAG="v${VERSION}-fpk-${RUN_NUMBER}"
-          REPO_URL="https://github.com/qilin-zhu/LitePan-fpk/releases/download/${TAG}"
+          REPO_URL="https://github.com/anxiangyipiao/LitePan-fpk/releases/download/${TAG}"
           X86_FPK="LitePan_x86_${VERSION}.fpk"
           ARM_FPK="LitePan_arm_${VERSION}.fpk"
 
@@ -253,7 +253,7 @@ jobs:
           ARM_URL="${REPO_URL}/${ARM_FPK}"
 
           # Clone FnDepot repo
-          git clone "https://x-access-token:${FNDEPOT_TOKEN}@github.com/qilin-zhu/FnDepot.git" fndepot-repo
+          git clone "https://x-access-token:${FNDEPOT_TOKEN}@github.com/anxiangyipiao/FnDepot.git" fndepot-repo
           cd fndepot-repo
 
           echo "=== FnDepot fnpack.json before update ==="

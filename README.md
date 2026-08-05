@@ -1,6 +1,6 @@
 ﻿# LitePan-fpk
 
-Auto-build [LitePan](https://github.com/Ponphil/LitePan) into fnOS .fpk packages for x86 and arm64.
+Auto-build [LitePan](https://github.com/anxiangyipiao/LitePan) into fnOS .fpk packages for x86 and arm64.
 
 ## Structure
 
